@@ -6,7 +6,7 @@
 
 A simple activity spinner for modern macOS apps, written in Swift. Resizeable & colorizable. macOS 10.10+
 
-![demo](https://raw.githubusercontent.com/nlap/NLSpinner/master/demo.png)
+<img src="https://raw.githubusercontent.com/nlap/NLSpinner/master/demo.png" alt="demo" width="312">
 
 ## Install
 NLSpinner supports Carthage. Add following line in `Cartfile`
