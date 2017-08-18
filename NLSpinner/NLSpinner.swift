@@ -27,6 +27,7 @@ open class NLSpinner : NSView {
     open var foregroundColor: NSColor! = NSColor.black
     open var backgroundColor: NSColor! = NSColor.clear
     open var tickDelay: Double = 0.05
+    open var frameTime: Double = 0.032 //30FPS Default (0.032 seconds/frame)
 
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -137,8 +138,7 @@ open class NLSpinner : NSView {
         isAnimating = true
         isFadingOut = false
         position = 1
-        //30FPS (0.032 seconds/frame)
-        animationTimer = Timer(timeInterval: 0.032, target: self, selector: #selector(self.updateFrame), userInfo: nil, repeats: true)
+        animationTimer = Timer(timeInterval: frameTime, target: self, selector: #selector(self.updateFrame), userInfo: nil, repeats: true)
         RunLoop.current.add(animationTimer, forMode: RunLoopMode.commonModes)
         RunLoop.current.add(animationTimer, forMode: RunLoopMode.defaultRunLoopMode)
         RunLoop.current.add(animationTimer, forMode: RunLoopMode.eventTrackingRunLoopMode)
