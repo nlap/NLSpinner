@@ -62,7 +62,7 @@ class ViewController: NSViewController {
     
     //can optionally hide spinner when stopped, otherwise it fades slightly
     @IBAction func changeShowWhenStopped(_ sender:AnyObject?) {
-        if (showWhenStopped.state == NSOnState) {
+        if (showWhenStopped.state == NSControl.StateValue.on) {
             spinner.isDisplayedWhenStopped = true
         } else {
             spinner.isDisplayedWhenStopped = false

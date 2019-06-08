@@ -54,14 +54,14 @@ open class NLSpinner : NSView {
             backgroundColor.set()
             NSBezierPath.fill(self.bounds)
             
-            let currentContext: CGContext = NSGraphicsContext.current()!.cgContext
+            let currentContext: CGContext = NSGraphicsContext.current!.cgContext
             NSGraphicsContext.saveGraphicsState()
             
             //draw fins
             currentContext.translateBy(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
             let path = NSBezierPath()
             path.lineWidth = CGFloat(0.07 * maxSize)
-            path.lineCapStyle = NSLineCapStyle.roundLineCapStyle
+            path.lineCapStyle = NSBezierPath.LineCapStyle.round
             path.move(to: NSMakePoint(0, CGFloat(0.25 * maxSize)))
             path.line(to: NSMakePoint(0, CGFloat(0.45 * maxSize)))
             for i in 0..<finColors.count {
@@ -91,7 +91,7 @@ open class NLSpinner : NSView {
     }
 
     //update animation
-    func updateFrame(_ timer: Timer) {
+    @objc func updateFrame(_ timer: Timer) {
         
         //move position every tickDelay seconds
         if (startTime.timeIntervalSinceNow <= 0 - abs(tickDelay)) {
@@ -119,7 +119,7 @@ open class NLSpinner : NSView {
         if isFadingOut {
             var done: Bool = true
             for i in 0..<finColors.count {
-                if fabs(finColors[i].alphaComponent - minAlpha) > 0.01 && isDisplayedWhenStopped {
+                if abs(finColors[i].alphaComponent - minAlpha) > 0.01 && isDisplayedWhenStopped {
                     done = false
                     break
                 }
@@ -139,9 +139,9 @@ open class NLSpinner : NSView {
         isFadingOut = false
         position = 1
         animationTimer = Timer(timeInterval: frameTime, target: self, selector: #selector(self.updateFrame), userInfo: nil, repeats: true)
-        RunLoop.current.add(animationTimer, forMode: RunLoopMode.commonModes)
-        RunLoop.current.add(animationTimer, forMode: RunLoopMode.defaultRunLoopMode)
-        RunLoop.current.add(animationTimer, forMode: RunLoopMode.eventTrackingRunLoopMode)
+        RunLoop.current.add(animationTimer, forMode: RunLoop.Mode.common)
+        RunLoop.current.add(animationTimer, forMode: RunLoop.Mode.default)
+        RunLoop.current.add(animationTimer, forMode: RunLoop.Mode.eventTracking)
     }
     private func stopAnimationTimer() {
         self.isAnimating = false
